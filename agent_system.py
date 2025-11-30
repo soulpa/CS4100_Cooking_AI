@@ -45,12 +45,12 @@ class ReActAgent:
         for step_idx in range(self.config.max_steps):
             # ====== TODO ======
             # 1. At each step, format the prompt based on the make_prompt function and self.trajectory
-            prompt = None
+            prompt = make_prompt(user_query, [asdict(s) for s in self.trajectory])
             # ====== TODO ======
 
             # ====== TODO ======
             # 2. Use self.llm to process the prompt
-            out = None
+            out = self.llm(prompt)
             # ====== TODO ======
 
             # Expect two lines: Thought:..., Action:...
@@ -62,7 +62,7 @@ class ReActAgent:
 
             # ====== TODO ======
             # 3. Parse the action of the action line using the parse_action function
-            parsed = None
+            parsed = parse_action(action_line)
             # ====== TODO ======
 
             if not parsed:
