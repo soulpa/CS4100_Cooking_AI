@@ -32,9 +32,9 @@ for index, row in recipes_data.iterrows():
     recipe = {
         "id": f"recipe{index}",
         "recipe": row["Name"],
-        "text": f"{row['Name']} {ingredient_names} {direction_steps}",
+        "text": f"{row['Name']} {ingredient_names}",
     }
-    CORPUS.append(recipe)
+    CORPUS.append(recipe) 
 
 # Then, we design a simple search method based on TF-IDF to retrieve information from the corpus.
 

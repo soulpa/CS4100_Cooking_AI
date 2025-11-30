@@ -94,7 +94,7 @@ class ReActAgent:
         # Build final answer from last finish action if present
         final_answer = None
         for s in reversed(self.trajectory):
-            if s.action.startswith("finish["):
+            if s.action.startswith("Action: finish["):
                 m = re.search(r'answer="(.*)"', s.action)
                 if m:
                     final_answer = m.group(1)

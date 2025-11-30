@@ -14,7 +14,6 @@ import re
 import textwrap
 import csv, io
 
-
 # The prompt for a language model in a ReAct framework is in the following format
 #     "User prompt: 'Who painted The Starry Night and where was it painted?' "
 #     "Thought: I should search for key facts about the painting"
@@ -140,8 +139,9 @@ SYSTEM_PREAMBLE = textwrap.dedent("""\
 
     Available tools:
     - search[query="<text>", k=<int>]  # searches a small encyclopedia and returns top-k results
-    To finish, use: finish[answer="<final answer>"]
-
+    
+    To finish, use: finish[answer="<final answer>"] # list seperated by ", " of names of recipes in your final answer. Do not combine recipe names.
+                                  
     Follow the exact step format:
     Thought: <your reasoning>
     Action: <one of the tool calls above, or finish[...]>
