@@ -4,12 +4,24 @@
 
 
 # First, let's import necessary packages
+
 from __future__ import annotations
 from dataclasses import dataclass, field, asdict
 from typing import Callable, Dict, List, Tuple, Optional, Any
 import json, math, re, textwrap, random, os, sys
 import math
-from collections import Counter, defaultdict
+import pandas as pd
+from collections import Counter, defaultdict\
+
+
+# load dataset
+recipes_data = pd.read_csv("data/test_recipes.csv")
+print(recipes_data.head(10))
+
+# clean dataset
+
+# for each row in dataset, convert into corpus entry
+
 
 # A toy corpus mimicing the documents of Wikipedia
 CORPUS = [
@@ -90,9 +102,13 @@ def compute_tf(tokens: List[str]) -> Dict[str, float]:
 
     # ===== TODO =====
     # implement the function to compute normalized term frequency: count of word / doc length
+    counts = defaultdict(int)
+    for token in tokens:
+      counts[token] += 1
+    length = max(1, len(tokens))
     
-    return {}
-    # ===== TODO =====
+    return {token: counts[token] / length for token in counts}
+
 
 
 
@@ -103,9 +119,11 @@ def compute_df(doc_tokens: List[List[str]]) -> Dict[str, float]:
 
     # ===== TODO =====
     # implement the function to compute document frequency: count of the word appearing in the documents
-    
-    # ===== TODO =====
-    return {}
+    df = defaultdict(int)
+    for tokens in doc_tokens:
+        for token in set(tokens):
+            df[token] += 1
+    return df
 
 #     Compute the inverse document frequency (higher for rarer terms), in which we use a smoothed variant
 DF = compute_df(DOC_TOKENS) # Get the DF
@@ -138,11 +156,14 @@ def cosine(a: Dict[str, float], b: Dict[str, float]) -> float:
     # Notice that they are two dictionaries and could have missing keys
     
     # compute dot product
+    dot = sum(a.get(k, 0.0) * b.get(k, 0.0) for k in set(a) | set(b))
     
     # compute norms
-    similarity = None
-    # ===== TODO =====
-    return similarity
+    na = math.sqrt(sum(v*v for v in a.values()))
+    nb = math.sqrt(sum(v*v for v in b.values()))
+
+    # similarity
+    return dot / (na * nb + 1e-12)
 
 
 # 6.   We implement a search method based on the cosine similarity, which finds the documents with the highest similarity scores as the top-k search results.
@@ -155,7 +176,7 @@ def search_corpus(query: str, k: int = 3) -> List[Dict[str, Any]]:
         d = CORPUS[idx].copy()
         d["score"] = float(score)
         results.append(d)
-    return results
+    return results  
 
 #       Integrate the search method as a tool
 def tool_search(query: str, k: int = 3) -> Dict[str, Any]:
