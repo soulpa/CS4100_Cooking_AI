@@ -86,16 +86,35 @@ def parse_action(line: str) -> Optional[Tuple[str, Dict[str, Any]]]:
     #     Use the parse_args function above to write a function that converts an action string to a function call
     #     Return the name of the function and the args
     name = None; args = None
+    if not line:
+        return None
+    s = line.strip()
 
     # 1) Must start with 'Action:'
-    
+    prefix = "Action:"
+    if not s.startswith(prefix):
+        return None
+    s = s[len(prefix):].strip()
+
     # 2) Extract action name up to the first '['
     #    name must be non-empty and composed of letters/underscores (basic check)
+    lb = s.find("[")
+    rb = s.rfind("]")
+    if lb == -1 or rb == -1 or rb < lb: # check if empty
+        return None
+
+    name = s[:lb].strip()
+    if not name or not all(c.isalpha() or c == "_" for c in name): # check if composed of letters/undrscores
+        return None
     
     # 3) Inside brackets: key=value pairs separated by commas (quotes allowed)
-    
+    inner = s[lb + 1 : rb].strip()
+    args = split_args(inner) if inner else {}
+
     # 4) Allow trailing whitespace after closing bracket only
-    
+    if any(ch not in " \t" for ch in s[rb + 1 :]):
+        return None
+
     # ====== TODO ======
     return name, args
 
