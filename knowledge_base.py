@@ -11,64 +11,30 @@ from typing import Callable, Dict, List, Tuple, Optional, Any
 import json, math, re, textwrap, random, os, sys
 import math
 import pandas as pd
+import ast
 from collections import Counter, defaultdict\
 
 
 # load dataset
-recipes_data = pd.read_csv("data/test_recipes.csv")
-print(recipes_data.head(10))
-
-# clean dataset
+recipes_data = pd.read_csv("data/clean_recipes.csv")
 
 # for each row in dataset, convert into corpus entry
+CORPUS = []
 
+# convert to list
+recipes_data["Ingredients"] = recipes_data["Ingredients"].apply( lambda x: ast.literal_eval(x) if isinstance(x, str) else x )
+recipes_data["Directions"] = recipes_data["Directions"].apply( lambda x: ast.literal_eval(x) if isinstance(x, str) else x )
 
-# A toy corpus mimicing the documents of Wikipedia
-CORPUS = [
-    {
-        "id": "doc1",
-        "title": "Vincent van Gogh",
-        "text": (
-            "Vincent van Gogh was a Dutch post-impressionist painter who is among the most famous and influential figures "
-            "in the history of Western art. He created about 2,100 artworks, including The Starry Night, while staying at "
-            "the Saint-Paul-de-Mausole asylum in Saint-Rémy-de-Provence in 1889."
-        ),
-    },
-    {
-        "id": "doc2",
-        "title": "The Starry Night",
-        "text": (
-            "The Starry Night is an oil-on-canvas painting by Dutch Post-Impressionist painter Vincent van Gogh. "
-            "Painted in June 1889, it depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, "
-            "just before sunrise, with the addition of an ideal village."
-        ),
-    },
-    {
-        "id": "doc3",
-        "title": "Saint-Rémy-de-Provence",
-        "text": (
-            "Saint-Rémy-de-Provence is a commune in the Bouches-du-Rhône department in Southern France. The Saint-Paul-de-Mausole "
-            "asylum is located here, where Vincent van Gogh stayed and painted several works including The Starry Night."
-        ),
-    },
-    {
-        "id": "doc4",
-        "title": "Pythagorean theorem",
-        "text": (
-            "In mathematics, the Pythagorean theorem is a fundamental relation in Euclidean geometry among the three sides of a "
-            "right-angled triangle: the square of the hypotenuse equals the sum of the squares of the other two sides."
-        ),
-    },
-    {
-        "id": "doc5",
-        "title": "Claude Monet",
-        "text": (
-            "Claude Monet was a French painter, a founder of Impressionist painting. His works include the Water Lilies series, "
-            "Haystacks, and Impression, Sunrise."
-        ),
-    },
-    # A quick play around: Add some extra documents and watch how the GPT model explores, searches, and reasons through more scenarios in the final step.
-]
+for index, row in recipes_data.iterrows():
+    ingredient_names = " ".join([i["name"] for i in row["Ingredients"]]) # get name
+    direction_steps = " ".join(row["Directions"])
+
+    recipe = {
+        "id": f"recipe{index}",
+        "recipe": row["Name"],
+        "text": f"{row['Name']} {ingredient_names} {direction_steps}",
+    }
+    CORPUS.append(recipe)
 
 # Then, we design a simple search method based on TF-IDF to retrieve information from the corpus.
 
@@ -89,7 +55,7 @@ def tokenize(text: str) -> List[str]:
     return re.findall(r"[a-zA-Z0-9']+", text.lower())
 
 #     Get all the words of each document in the corpus
-DOC_TOKENS = [tokenize(d["title"] + " " + d["text"]) for d in CORPUS]
+DOC_TOKENS = [tokenize(d["recipe"] + " " + d["text"]) for d in CORPUS]
 
 #     Get all the words from the corpus
 VOCAB = sorted(set(t for doc in DOC_TOKENS for t in doc))
@@ -186,7 +152,7 @@ def tool_search(query: str, k: int = 3) -> Dict[str, Any]:
         "tool": "search",
         "query": query,
         "results": [
-            {"id": h["id"], "title": h["title"], "snippet": h["text"][:240] + ("..." if len(h["text"]) > 240 else "")}
+            {"id": h["id"], "recipe": h["recipe"], "snippet": h["text"][:240] + ("..." if len(h["text"]) > 240 else "")}
             for h in hits
         ],
     }
