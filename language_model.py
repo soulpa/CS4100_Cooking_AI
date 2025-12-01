@@ -13,7 +13,7 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_NAME,
     device_map="auto",
-    torch_dtype=DTYPE,
+    dtype=DTYPE,
     trust_remote_code=True,
     attn_implementation="eager",
     **({"load_in_8bit": True} if LOAD_8BIT else {})

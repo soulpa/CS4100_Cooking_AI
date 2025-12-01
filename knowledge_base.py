@@ -23,16 +23,14 @@ CORPUS = []
 
 # convert to list
 recipes_data["Ingredients"] = recipes_data["Ingredients"].apply( lambda x: ast.literal_eval(x) if isinstance(x, str) else x )
-recipes_data["Directions"] = recipes_data["Directions"].apply( lambda x: ast.literal_eval(x) if isinstance(x, str) else x )
 
 for index, row in recipes_data.iterrows():
     ingredient_names = " ".join([i["name"] for i in row["Ingredients"]]) # get name
-    direction_steps = " ".join(row["Directions"])
 
     recipe = {
         "id": f"recipe{index}",
         "recipe": row["Name"],
-        "text": f"{row['Name']} {ingredient_names}",
+        "text": f"{row['Name']} {ingredient_names}"
     }
     CORPUS.append(recipe) 
 
