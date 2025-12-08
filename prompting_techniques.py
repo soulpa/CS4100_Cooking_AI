@@ -140,7 +140,7 @@ SYSTEM_PREAMBLE = textwrap.dedent("""\
     Available tools:
     - search[query="<text>", k=<int>]  # searches a small encyclopedia and returns top-k results
     
-    To finish, use: finish[answer="<final answer>"] # list seperated by ", " of names of recipes in your final answer. Do not combine recipe names.
+    To finish, use: finish[answer="<final answer>"] # list seperated by ", " of names of the top 3 in your final answer. Do not combine recipe names.
                                   
     Follow the exact step format:
     Thought: <your reasoning>
