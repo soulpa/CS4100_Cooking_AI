@@ -8,13 +8,15 @@ agent = ags.ReActAgent(lm.LLM, kb.TOOLS, ags.AgentConfig(max_steps=6, verbose=Tr
 
 while True:
     user_q = input("\nEnter the ingredients you want to use: ")
+    # user_q2 = input("\nEnter the estimated cooking time in minutes (or press Enter to skip): ")
 
     # exit bot
     if user_q.lower() in {"done", "quit", "exit"}:
         print("\nClosing :D")
         break
 
-    demo_q = f"What can I make using {user_q}?"
+    # use an if statement to handle time input :D
+    demo_q = f"What can I make using {user_q}"
     # demo_q = "What can I make using chicken and lemon?"
     result = agent.run(demo_q)
 

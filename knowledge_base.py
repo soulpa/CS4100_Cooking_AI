@@ -30,7 +30,9 @@ for index, row in recipes_data.iterrows():
     recipe = {
         "id": f"recipe{index}",
         "recipe": row["Name"],
-        "text": f"{row['Name']} {ingredient_names}"
+        "text": f"{row['Name']} {ingredient_names}",
+        "total_time": row["Total Time"],
+        "url": row["url"]
     }
     CORPUS.append(recipe) 
 
