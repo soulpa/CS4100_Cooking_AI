@@ -22,7 +22,7 @@ $ sudo apt update
 $ sudo apt install python3
 ```
 
-### 2. Install dependencies
+### 2. Install Dependencies
 
 Run the command to download following packages:
 ```
@@ -53,6 +53,7 @@ Input:`Ingredients: Chicken`, `Time: 30 minutes`
 
 ### Chicken Cordon Bleu
 **Total Time:** 45 minutes
+
 **Ingredients:**
 - nonstick cooking spray
 - 4 skinless, boneless chicken breast halves
@@ -61,6 +62,7 @@ Input:`Ingredients: Chicken`, `Time: 30 minutes`
 - 6 slices Swiss cheese
 - 4 slices cooked ham
 - ½ cup seasoned bread crumbs
+
 [View Full Recipe Here](https://www.allrecipes.com/recipe/8495/chicken-cordon-bleu-i/)
 
 </br>
