@@ -27,9 +27,9 @@ $ pip install -r requirements.txt
 ```
 $ git clone https://github.com/soulpa/CS4100_Cooking_AI.git
 ```
-- Navigate into the main directory
+- Navigate into the src directory
 ```
-cd CS4100_Cooking_AI/
+cd CS4100_Cooking_AI/src/
 ```
 
 ### 4. Run Website Remotely
