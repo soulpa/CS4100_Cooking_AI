@@ -59,6 +59,7 @@ Lists 3 recipe recommendations, their corresponding cooking time (which includes
 - Can potentially implement fuzzy wordmatching; if user inputs words that are spelled incorrectly, the TF-IDF won't match term well
 - Time input can be improved to separate additional cooking time
 - Sometimes it outputs one recipe, sometimes it outputs more than one 
+- All recipies csv is different from the test recipies so our code didn't transfer from one to the other :\( we found this out too late but in the future we can make improvements to add more recipes by implementing recipes.csv
 
 ## Conclusion
 
