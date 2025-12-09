@@ -74,3 +74,5 @@ With this, we have achieved implementing an AI agent to recommend users recipes 
 
 [3]	Recipes Dataset. Kaggle.com. Retrieved December 8, 2025 from https://www.kaggle.com/datasets/thedevastator/better-recipes-for-a-better-life
 
+[4] Class template. :D
+
