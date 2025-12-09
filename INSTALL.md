@@ -29,12 +29,12 @@ $ git clone https://github.com/soulpa/CS4100_Cooking_AI.git
 ```
 - Navigate into the src directory
 ```
-cd CS4100_Cooking_AI/src/
+cd CS4100_Cooking_AI/
 ```
 
 ### 4. Run Website Remotely
 
 ```
-python -m streamlit run app.py
+python -m streamlit run src/app.py
 ```
 - Website should automatically pop up!

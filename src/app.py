@@ -10,9 +10,6 @@ recipes_data = pd.read_csv("data/clean_recipes.csv")
 
 st.title("AI Cooking Agent👨‍🍳✨")
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
 with st.chat_message("assistant"):
     st.write("Hello! If you provide me with ingredients and an estimated cooking time, I can provide you with yummy recipe recommendations. :)")
 

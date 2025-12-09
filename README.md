@@ -2,7 +2,7 @@
 
 ### By: Kristen Cho and Ivina Wang
 
-Insallation instructions can be found in INSTALL.md!
+Insallation instructions can be found in [INSTALL.md](https://github.com/soulpa/CS4100_Cooking_AI/blob/main/INSTALL.md)!
 
 ## Abstract
 Every day, people think to themselves one simple question: "What should I make to eat?" Some people might also be tired of making the same things repeatedly, too. We combated this problem by developing an AI agent to generate recipe recommendations given inputs of certain ingredients and a suggested cooking time. 
